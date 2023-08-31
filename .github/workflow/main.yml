@@ -2,9 +2,9 @@ Name: Django CI/CD
 
 on:
   push:
-    branches: [ "feature/authentication" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "feature/authentication" ]
+    branches: [ "main" ]
 
 jobs:
   build:

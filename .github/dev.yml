@@ -19,6 +19,6 @@ jobs:
       run: |
         python3 manage.py test
      - makemigrations:
-        python3 manage.py makemigrations
+        python3 manage.py migrate
     - runserver:
         python3 manage.py runserver

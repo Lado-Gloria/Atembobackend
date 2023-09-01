@@ -1,0 +1,24 @@
+Name: Django CI/CD
+
+on:
+  push:
+    branches: [ "dev" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: '3.9'
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python3 manage.py test
+     - makemigrations:
+        python3 manage.py migrate
+    - runserver:
+        python3 manage.py runserver

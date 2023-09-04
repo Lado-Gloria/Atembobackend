@@ -2,15 +2,19 @@ Name: Django CI/CD
 
 on:
   push:
+    branches: [ "main" ]
+    branches: [ "staging" ]
     branches: [ "dev" ]
-
+  pull_request:
+    branches: [ "main" ]
+    branches: [ "staging" ]
+    branches: [ "dev" ]
+  
 jobs:
   build:
 
     runs-on: ubuntu-20.04
-    strategy:
-      max-parallel: 4
-      matrix:
+    - name : python-version
         python-version: '3.9'
     - name: Install Dependencies
       run: |
@@ -18,7 +22,11 @@ jobs:
     - name: Run Tests
       run: |
         python3 manage.py test
-     - makemigrations:
+      makemigrations:
         python3 manage.py migrate
-    - runserver:
+      runserver:
         python3 manage.py runserver
+    - name: Format Code with pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files

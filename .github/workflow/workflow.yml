@@ -2,13 +2,16 @@ Name: Django CI/CD
 
 on:
   push:
-    branches: [ "main" ]
-    branches: [ "staging" ]
-    branches: [ "dev" ]
+    branches: 
+     - main
+     - staging
+     - dev
+
   pull_request:
-    branches: [ "main" ]
-    branches: [ "staging" ]
-    branches: [ "dev" ]
+    branches: 
+     - main
+     - staging
+     - dev
   
 jobs:
   build:
@@ -17,6 +20,7 @@ jobs:
     - name : python-version
         python-version: '3.9'
     - name: Install Dependencies
+        
       run: |
         pip install -r requirements.txt
     - name: Run Tests
@@ -26,7 +30,10 @@ jobs:
         python3 manage.py migrate
       runserver:
         python3 manage.py runserver
-    - name: Format Code with pre-commit
-        run: |
-          pip install pre-commit
-          pre-commit run --all-files
+
+    -  name: Install requirements 
+        run: pip install -r requirements.txt
+      - name: Check Syntax 
+        run: pre-commit run --all-files
+
+

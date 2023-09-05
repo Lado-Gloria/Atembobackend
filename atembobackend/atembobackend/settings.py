@@ -75,12 +75,12 @@ WSGI_APPLICATION = 'atembobackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'atembo',
-        'USER': 'atembo',
-        'PASSWORD': '1234',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'USER': 'postgres',
+        'PASSWORD': 'atembo_pass',  
+        'HOST': 'localhost',          
+        'PORT': '5432',               
     }
 }
 
@@ -102,6 +102,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+import logging
+logging.basicConfig()
+logger = logging.getLogger('django.db.backends')
+logger.setLevel(logging.DEBUG)
 
 
 # Internationalization

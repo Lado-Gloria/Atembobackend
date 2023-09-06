@@ -1,0 +1,4 @@
+myenv/
+atembobackend/atembobackend/__pycache__
+
+db.sqlite3

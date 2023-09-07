@@ -1,5 +1,5 @@
 atembobackend/atembobackend/__pycache__
 
-myenv/
-/venv
+# myenv/
+# /venv
 db.sqlite3

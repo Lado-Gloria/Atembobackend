@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Location',
-    'rest_framework',
+    # 'rest_framework',
     'api.apps.ApiConfig',
 ]
 
@@ -79,14 +79,13 @@ WSGI_APPLICATION = 'atembobackend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'atembo',
-        'USER': 'postgres',
-        'PASSWORD': 'atembo_pass',  
-        'HOST': 'localhost',          
-        'PORT': '5432',               
+        'NAME': 'atembo', 
+        'USER': 'postgres',  
+        'PASSWORD': 'your_password',  
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

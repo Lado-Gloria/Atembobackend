@@ -1,19 +1,11 @@
 from pstats import Stats
-import statistics
 from rest_framework import serializers
 from rest_framework.response import Response
 
-from temperature.models import Device, TemperatureHumidityRecord
+from temperature_recording.models import Device, TemperatureHumidityRecord
 
 
-def temperature_humidity_record_detail(request, pk):
-    try:
-        record = TemperatureHumidityRecord.objects.get(pk=pk)
-    except TemperatureHumidityRecord.DoesNotExist:
-        return Response({"error": "Record does not exist"}, status=Stats.HTTP_404_NOT_FOUND)
 
-    serializer = TemperatureHumidityRecordSerializer(record) 
-    return Response(serializer.data, status=statistics.HTTP_200_OK)  
 
 class TemperatureHumidityRecordSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

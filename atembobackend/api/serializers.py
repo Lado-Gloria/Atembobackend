@@ -11,3 +11,4 @@ class TemperatureHumidityRecordSerializer(serializers.Serializer):
 
 
 
+from rest_framework.response import Response

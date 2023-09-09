@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'atembobackend.wsgi.application'
+WSGI_APPLICATION = 'atembobackend.atembobackend.wsgi.application'
 
 
 # Database
@@ -105,11 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-import logging
-logging.basicConfig()
-logger = logging.getLogger('django.db.backends')
-logger.setLevel(logging.DEBUG)
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

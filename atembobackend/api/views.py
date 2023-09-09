@@ -57,6 +57,7 @@ class FlowrateListAPIView(APIView):
 
 
 
+
 class FlowrateDetailView(APIView):
     def get(self, request,id, format=None):
         flow= FlowRate.objects.get(id=id)

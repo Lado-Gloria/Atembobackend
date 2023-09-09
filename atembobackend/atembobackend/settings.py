@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'temperature'
+    'temperature_recording',
+    'rest_framework',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'atembobackend.urls'
+ROOT_URLCONF = 'atembobackend.atembobackend.urls'
 
 TEMPLATES = [
     {

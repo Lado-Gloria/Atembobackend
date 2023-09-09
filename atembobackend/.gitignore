@@ -1,6 +1,0 @@
-myenv/
-/venv
-db.sqlite3
-requirements.txt
-/__pycache__
-.pyc

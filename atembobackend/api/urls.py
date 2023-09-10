@@ -7,3 +7,5 @@ urlpatterns = [
     path('flowrate/', FlowrateListAPIView.as_view(), name='flowrate-list'),
     path('flowrate/<int:id>/', FlowrateDetailView.as_view(), name='flowrate-detail'),
 ]
+
+

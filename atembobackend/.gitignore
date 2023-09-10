@@ -2,4 +2,3 @@ __pycache__/
 myenv/
 venv/
 db.sqlite3
-rosedb

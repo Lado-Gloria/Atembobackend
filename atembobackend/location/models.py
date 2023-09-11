@@ -1,9 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
-
-
 class Location(models.Model):
     region_name = models.CharField(max_length=255)
     installation_date = models.DateTimeField(null=True, blank=True)

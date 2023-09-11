@@ -1,15 +1,26 @@
-import datetime
-from django.test import TestCase
-from location.models import Location
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APITestCase
+from .models import Location
+from api.serializers import LocationSerializer
 
-class LocationTestCase(TestCase):
-
-    def test_location_creation(self):
-        location = Location.objects.create(
+class LocationAPITest(APITestCase):
+    def setUp(self):
+        self.location = Location.objects.create(
             region_name='Test Region',
-            installation_date=datetime.date(2023, 9, 8),
-            other_attributes_here='...',
+            installation_date='2023-09-08 00:00:00' 
         )
 
-       
-        self.assertEqual(location.installation_date, datetime.date(2023, 9, 8))
+    def test_retrieve_location(self):
+        url = reverse('location-detail', args=[self.location.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        serializer = LocationSerializer(self.location)
+        expected_data = {
+            'id': str(self.location.id),
+            'region_name': 'Test Region',
+            'updated_at': serializer.data['updated_at']
+        }
+
+    

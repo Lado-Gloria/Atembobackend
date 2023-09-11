@@ -1,5 +1,5 @@
 from location.models import Location
-from api.serializers import LocationSerializers
+from api.serializers import LocationSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,11 +8,11 @@ from django.http import Http404
 class LocationListCreateView(APIView):
     def get(self, request):
         locations = Location.objects.all()
-        serializer = LocationSerializers(locations, many=True)
+        serializer = LocationSerializer(locations, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = LocationSerializers(data=request.data)
+        serializer = LocationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -27,12 +27,12 @@ class LocationDetailView(APIView):
 
     def get(self, request, pk, format=None):
         location = self.get_object(pk)
-        serializer = LocationSerializers(location)
+        serializer = LocationSerializer(location)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         location = self.get_object(pk)
-        serializer = LocationSerializers(location, data=request.data)
+        serializer = LocationSerializer(location, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

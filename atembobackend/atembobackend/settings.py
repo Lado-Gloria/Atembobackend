@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'flowrate',
     'api',
     'rest_framework',
+    # 'rest_framework_swagger',    
+    # 'drf_yasg'   
 ]
 
 MIDDLEWARE = [

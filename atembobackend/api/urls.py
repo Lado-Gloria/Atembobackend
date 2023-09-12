@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import RegistrationListView, RegistrationDetailView
+from .views import UserListView, UserDetailView, UserLoginView,UserRegistrationView
 
 urlpatterns = [
-    path("registration/", RegistrationListView.as_view(), name="registration_list_view"),
-    path("registration/<int:id>/", RegistrationDetailView.as_view(), name="registration_detail_view"),
+    path("users/",UserListView.as_view(), name="registration_list_view"),
+    path("user/<int:id>/", UserDetailView.as_view(), name="registration_detail_view"),
+    path("register/", UserRegistrationView.as_view(), name="user_registration_view"),
+    path("login/", UserLoginView.as_view(), name="user_login_view"), 
 ]

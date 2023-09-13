@@ -3,7 +3,7 @@ from django.db import models
 
 class Device(models.Model):
     serial_number = models.CharField(max_length=50, blank=True)
-    name = models.CharField(max_length=50, default='Unknown')
+    device_owner = models.CharField(max_length=50, default="unknown")
 
     class Meta:
         verbose_name_plural = "devices"
@@ -14,7 +14,7 @@ class Device(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.device_owner
 
 class FlowRate(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)

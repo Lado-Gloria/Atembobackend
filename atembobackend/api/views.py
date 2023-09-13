@@ -1,30 +1,53 @@
-from .serializers import TemperatureHumidityRecord, TemperatureHumidityRecordSerializer
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status 
+from rest_framework.views import APIView
+from temperature_recording.models import TemperatureHumidityRecord
+from .serializers import TemperatureHumidityRecordSerializer
+from django.http import Http404
 
-@api_view(['GET', 'POST', 'PUT'])
-def temperature_humidity_record_detail(request, pk):
-    try:
-        record = TemperatureHumidityRecord.objects.get(pk=pk)
+class TemperatureListView(APIView):
+    serializer_class = TemperatureHumidityRecordSerializer
 
-        if request.method == 'GET':
-            serializer = TemperatureHumidityRecordSerializer(record)
-            return Response(serializer.data)
+    def get_queryset(self):
+        return TemperatureHumidityRecord.objects.all()  
 
-        elif request.method == 'PUT':
-            serializer = TemperatureHumidityRecordSerializer(record, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        temperatures = self.get_queryset()
+        serializer = TemperatureHumidityRecordSerializer(temperatures, many=True)
+        return Response(serializer.data)
 
-    except TemperatureHumidityRecord.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'POST':
+    def post(self, request):
         serializer = TemperatureHumidityRecordSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TemperatureDetailView(APIView):
+    serializer_class = TemperatureHumidityRecordSerializer
+
+    def get_queryset(self):
+        return TemperatureHumidityRecord.objects.all() 
+    def get_object(self, id):
+        try:
+            return self.get_queryset().get(id=id)
+        except TemperatureHumidityRecord.DoesNotExist:
+            raise Http404("Temperature not found")
+
+    def get(self, request, id):
+        temperature = self.get_object(id)
+        serializer = TemperatureHumidityRecordSerializer(temperature)
+        return Response(serializer.data)
+
+    def put(self, request, id):
+        temperature = self.get_object(id)
+        serializer = TemperatureHumidityRecordSerializer(temperature, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id):
+        temperature = self.get_object(id)
+        temperature.delete()
+        return Response("Temperature deleted", status=status.HTTP_204_NO_CONTENT)

@@ -39,20 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'temperature_recording',
     'rest_framework',
-    'api'
+    'api',
+    'drf_yasg',
+    'rest_framework_swagger',
+    'rest_framework.authtoken',
+    'device',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'atembobackend.atembobackend.urls'
+ROOT_URLCONF = 'atembobackend.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'atembobackend.atembobackend.wsgi.application'
+WSGI_APPLICATION = 'atembobackend.wsgi.application'
 
 
 # Database

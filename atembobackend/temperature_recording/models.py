@@ -1,11 +1,5 @@
 from django.db import models
-
-class Device(models.Model):
-    name = models.CharField(max_length=255)
-    serial_number = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
+from device.models import Device
 
 class TemperatureHumidityRecord(models.Model):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
@@ -13,6 +7,10 @@ class TemperatureHumidityRecord(models.Model):
     humidity = models.DecimalField(max_digits=5, decimal_places=2)  
     temperature = models.DecimalField(max_digits=5, decimal_places=2) 
 
+    @property
+    def humidity_with_unit(self):
+        return f"{self.humidity}% RH"
 
-    def __str__(self):
-        return f"Device: {self.device.name}, Timestamp: {self.time_stamp}, Humidity: {self.humidity}%, Temperature: {self.temperature}°C"
+    @property
+    def temperature_with_unit(self):
+        return f"{self.temperature}°C"

@@ -1,6 +1,6 @@
-# name: Django Build and Test CICD
-# on:
-#   push:
+name: Django Build and Test CICD
+on:
+  push:
 #     branches:
 #       - main
 #       - staging

@@ -23,8 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'location',
+    'api',
+    'drf_yasg',
     'rest_framework',
-    'api.apps.ApiConfig',
+  
 ]
 
 MIDDLEWARE = [
@@ -114,3 +116,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SWAGGER_SETTINGS = { 
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_yasg.inspectors.SwaggerAutoSchema',
+    'DEFAULT_INFO': 'your_project.api_info',
+}

@@ -1,7 +1,3 @@
-from django.db import models
-
-# Create your models here.
-
 import uuid
 from django.db import models
 
@@ -27,6 +23,3 @@ class FlowRate(models.Model):
 
     class Meta:
         verbose_name_plural = "flowrates"
-        
-        
-        

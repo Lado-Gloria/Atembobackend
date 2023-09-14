@@ -1,28 +1,40 @@
-from django.urls import URLPattern, path
-from .views import TemperatureListView, TemperatureDetailView  # Import your Temperature views
-from django.conf import settings
+from django.urls import path,include
 from django.conf.urls.static import static
-from rest_framework_swagger.views import get_swagger_view
+from .views import LocationListCreateView
+from .views import LocationDetailView
+from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from rest_framework import permissions
+from .views import LocationListCreateView,LocationDetailView
 from django.conf import settings
 
 
 
-schema_view = get_schema_view(
+
+schema_view= get_schema_view(
     openapi.Info(
-      title="temperature_recording",
-      default_version='v1',),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-   )
+        title="Locations API",
+        description='API for Locations',
+        default_version ='v1',),
+        public=True,
+        permission_classes=(permissions.AllowAny,),
+    )
+
+
+from django.urls import path
+from .views import DeviceListAPIView, DeviceDetailView, FlowrateListAPIView, FlowrateDetailView
 
 urlpatterns = [
-    path("Temperature/", TemperatureListView.as_view(), name="temperature_list_view"),
-    path("Temperature/<int:id>/", TemperatureDetailView.as_view(), name="temperature_detail_view"),
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('devices/', DeviceListAPIView.as_view(), name='device-list'),
+    path('devices/<int:id>/', DeviceDetailView.as_view(), name='device-detail'),
+    path('flowrate/', FlowrateListAPIView.as_view(), name='flowrate-list'),
+    path('flowrate/<int:id>/', FlowrateDetailView.as_view(), name='flowrate-detail'),
+     path('locations/', LocationListCreateView.as_view(), name='location-list-create'),
+    path('locations/<int:pk>/', LocationDetailView.as_view(), name='location-detail'),
+    path('document/locations',schema_view.with_ui('swagger',cache_timeout=0),name='schema-swagger-ui'),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns+= static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+
+

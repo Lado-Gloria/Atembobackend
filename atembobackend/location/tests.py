@@ -8,7 +8,7 @@ class LocationAPITest(APITestCase):
     def setUp(self):
         self.location = Location.objects.create(
             region_name='Test Region',
-            installation_date='2023-09-08 00:00:00' 
+            installation_date='2023-09-08' 
         )
 
     def test_retrieve_location(self):

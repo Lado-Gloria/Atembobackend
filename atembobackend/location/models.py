@@ -11,4 +11,3 @@ class Location(models.Model):
        return self.region_name
     
   
-

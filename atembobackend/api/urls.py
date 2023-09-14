@@ -1,37 +1,11 @@
-from django.urls import path,include
-from django.conf.urls.static import static
-from .views import LocationListCreateView
-from .views import LocationDetailView
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from .views import LocationListCreateView,LocationDetailView
-from django.conf import settings
-
-
-
-
-schema_view= get_schema_view(
-    openapi.Info(
-        title="Locations API",
-        description='API for Locations',
-        default_version ='v1',),
-        public=True,
-        permission_classes=(permissions.AllowAny,),
-    )
-
-
+from django.urls import path
+from .views import DeviceListAPIView, DeviceDetailView, FlowrateListAPIView, FlowrateDetailView
 
 urlpatterns = [
-    path('locations/', LocationListCreateView.as_view(), name='location-list-create'),
-    path('locations/<int:pk>/', LocationDetailView.as_view(), name='location-detail'),
-    path('document/locations',schema_view.with_ui('swagger',cache_timeout=0),name='schema-swagger-ui'),
-
-   
-
+    path('devices/', DeviceListAPIView.as_view(), name='device-list'),
+    path('devices/<int:id>/', DeviceDetailView.as_view(), name='device-detail'),
+    path('flowrate/', FlowrateListAPIView.as_view(), name='flowrate-list'),
+    path('flowrate/<int:id>/', FlowrateDetailView.as_view(), name='flowrate-detail'),
 ]
-if settings.DEBUG:
-    urlpatterns+= static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
-
 
 

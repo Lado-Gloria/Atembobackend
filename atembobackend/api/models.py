@@ -3,7 +3,7 @@ from django.db import models
 
 class Device(models.Model):
     serial_number = models.CharField(max_length=50, blank=True)
-    device_owner = models.CharField(max_length=50, default="unknown")
+    device_owner = models.CharField(max_length=50)
 
     class Meta:
         verbose_name_plural = "devices"

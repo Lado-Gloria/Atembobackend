@@ -6,8 +6,8 @@ from api.serializers import DeviceSerializer, FlowRateSerializer
 
 class DeviceAPITestCase(APITestCase):
     def test_device_list_api(self):
-        device1 = Device.objects.create(device_owner="John Doe")
-        device2 = Device.objects.create(device_owner="Jane Smith")
+        device1 = Device.objects.create(device_owner="Rose Kivuva")
+        device2 = Device.objects.create(device_owner="Ann Aketch")
 
         response = self.client.get(reverse('device-list'))
 

@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 import logging
 from api.serializers import CustomUserSerializer
+from registration.models import CustomUser
+
 
 from registration.models import CustomUser
 logger = logging.getLogger(__name__)
@@ -57,6 +59,7 @@ class CustomUserLoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
+        logger.debug(f'Username: {username}, Password: {password}')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)

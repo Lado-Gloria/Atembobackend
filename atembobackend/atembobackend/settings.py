@@ -115,7 +115,7 @@ logger.setLevel(logging.DEBUG)
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
+# https://docs.djangoproject.comse a Different Authentication Method: If the API uses CSRF tokens as a form of authentication, you can check if it supports other authentication methods, such as API keys, OAuth tokens, or basic authentication. If these alternatives are available, you can use them instead of dealing with CSRF tokens./en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -135,3 +135,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+AUTH_USER_MODEL = 'registration.CustomUser'
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]

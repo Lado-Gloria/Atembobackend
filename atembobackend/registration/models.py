@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -20,3 +21,6 @@ class CustomUser(AbstractUser):
         blank=True,
         help_text='Permission to user.',
         verbose_name='user_permissions',)
+
+USERNAME_FIELD = 'email'
+REQUIRED_FIELDS = ['username']

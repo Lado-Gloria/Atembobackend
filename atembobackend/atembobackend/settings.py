@@ -11,6 +11,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-@00w4l=!ga8vk0
 DEBUG = True
 
 ALLOWED_HOSTS = []
+from decouple import config
 
 
 # Application definition
@@ -25,6 +26,8 @@ INSTALLED_APPS = [
     'flowrate',
     'location',
     'api',
+    'device',
+    'temperature_recording'
    
     
 ]

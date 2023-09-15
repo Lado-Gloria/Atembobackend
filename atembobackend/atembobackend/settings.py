@@ -11,6 +11,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-@00w4l=!ga8vk0
 DEBUG = True
 
 ALLOWED_HOSTS = []
+from decouple import config
 
 
 # Application definition
@@ -25,15 +26,18 @@ INSTALLED_APPS = [
     'flowrate',
     'location',
     'api',
+    'device',
+    'temperature_recording'
    
     
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

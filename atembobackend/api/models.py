@@ -27,3 +27,6 @@ class FlowRate(models.Model):
 
     class Meta:
         verbose_name_plural = "flowrates"
+        
+        
+        

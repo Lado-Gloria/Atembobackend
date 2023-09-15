@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 # Register your models here.
 from .models import FlowRate, Device
 
@@ -12,3 +13,5 @@ class FlowRateAdmin(admin.ModelAdmin):
     list_display = ('device', 'time_stamp', 'flow_rate')
 
 admin.site.register(FlowRate, FlowRateAdmin)
+
+

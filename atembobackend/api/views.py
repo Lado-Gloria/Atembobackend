@@ -1,63 +1,51 @@
-from django.shortcuts import render
-from .serializers import RegistrationSerializer
-from rest_framework.views import APIView
-from registration.models import Registration
-from rest_framework import status
+from rest_framework import generics, permissions, status
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 from rest_framework.response import Response
-from django.contrib.auth import login,logout
+from .serializers import UserSerializer, UserLoginSerializer
 
-# Create your views here.
-class UserListView(APIView):
-    def get(self, request):
-        registrations = Registration.objects.all()
-        serializer = RegistrationSerializer(registrations, many=True)
-        return Response(serializer.data)
-    
-    def post(self, request):
-        serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-class UserDetailView(APIView):
-    def get(self, request, id, format=None):
-        registration = Registration.objects.get(id=id)
-        serializer = RegistrationSerializer(registration)
-        return Response(serializer.data)
-    
-    def put(self, request, id, format=None):
-        registration = Registration.objects.get(id=id)
-        serializer = RegistrationSerializer(registration, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        
-    def delete(self, request, id, format=None):
-        registration = Registration.objects.get(id=id)
-        registration.delete()
-        return Response("User deleted", status=status.HTTP_204_NO_CONTENT)
+User = get_user_model()
+
+class UserListCreateView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-class UserRegistrationView(APIView):
-    def post(self, request):
-        serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class UserRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
-class UserLoginView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        password = request.data.get('password')
-        try:
-            user = Registration.objects.get(email=email)
-        except Registration.DoesNotExist:
-            return Response({'detail': 'user not found'}, status=status.HTTP_404_NOT_FOUND)
-        if user.check_password(password):
-            login(request, user)
-            return Response({'detail': 'user logged in'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class UserLoginView(generics.CreateAPIView):
+    serializer_class = UserLoginSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
+
+class TokenView(generics.GenericAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
+
+

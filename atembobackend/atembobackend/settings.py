@@ -11,7 +11,6 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-@00w4l=!ga8vk0
 DEBUG = True
 
 ALLOWED_HOSTS = []
-from decouple import config
 
 
 # Application definition
@@ -23,13 +22,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
+    'api',
+    'rest_framework',
+    'rest_framework.authtoken',
     'flowrate',
     'location',
-    'api',
     'device',
-    'temperature_recording'
+    'temperature_recording',
    
-    
 ]
 
 MIDDLEWARE = [
@@ -69,12 +70,12 @@ WSGI_APPLICATION = 'atembobackend.wsgi.application'
 import os
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_ENGINE'),
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'atembo',
+        'USER': 'postgres',
+        'PASSWORD': 'atembo_pass',  
+        'HOST': 'localhost',          
+        'PORT': '5432',               
     }
 }
 
@@ -102,7 +103,7 @@ logger = logging.getLogger('django.db.backends')
 logger.setLevel(logging.DEBUG)
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
+# https://docs.djangoproject.comse a Different Authentication Method: If the API uses CSRF tokens as a form of authentication, you can check if it supports other authentication methods, such as API keys, OAuth tokens, or basic authentication. If these alternatives are available, you can use them instead of dealing with CSRF tokens./en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

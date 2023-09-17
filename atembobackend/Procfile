@@ -1,1 +1,0 @@
-web: gunicorn atembo_backend.wsgi --log-file -

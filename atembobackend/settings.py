@@ -140,3 +140,5 @@ SWAGGER_SETTINGS = {
     'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_yasg.inspectors.SwaggerAutoSchema',
     'DEFAULT_INFO': 'your_project.api_info',
 }
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

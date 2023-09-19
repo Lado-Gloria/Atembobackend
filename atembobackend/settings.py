@@ -74,8 +74,8 @@ import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'atembo',
-        'USER': 'postgres',
+        'NAME': 'default',
+        'USER': 'user',
         'PASSWORD': 'atembo_pass',  
         'HOST': 'localhost',          
         'PORT': '5432',               

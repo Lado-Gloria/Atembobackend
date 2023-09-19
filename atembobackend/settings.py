@@ -91,6 +91,7 @@ DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_
 
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 

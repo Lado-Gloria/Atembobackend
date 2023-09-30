@@ -19,12 +19,12 @@ logger = logging.getLogger(__name__)
 
 
 class CustomUserListView(APIView):
-    @method_decorator(csrf_exempt)
+    
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
-    
+    # @method_decorator(csrf_exempt)
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():

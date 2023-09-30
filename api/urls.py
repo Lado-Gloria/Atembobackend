@@ -29,15 +29,14 @@ urlpatterns = [
     path('devices/<int:id>/', DeviceDetailView.as_view(), name='device-detail'),
     path('flowrate/', FlowrateListAPIView.as_view(), name='flowrate-list'),
     path('flowrate/<int:id>/', FlowrateDetailView.as_view(), name='flowrate-detail'),
-     path('locations/', LocationListCreateView.as_view(), name='location-list-create'),
+    path('locations/', LocationListCreateView.as_view(), name='location-list-create'),
     path('locations/<int:pk>/', LocationDetailView.as_view(), name='location-detail'),
     path('document/locations',schema_view.with_ui('swagger',cache_timeout=0),name='schema-swagger-ui'),
-     path("Temperature/", TemperatureListView.as_view(), name="temperature_list_view"),
+    path("Temperature/", TemperatureListView.as_view(), name="temperature_list_view"),
     path("Temperature/<int:id>/", TemperatureDetailView.as_view(), name="temperature_detail_view"),
-     path('user/', CustomUserListView.as_view(), name='user-list-create'),
+    path('user/', CustomUserListView.as_view(), name='user-list-create'),
     path('user/<int:pk>/', CustomUserDetailView.as_view(), name='user-detail-view'),
     path('login/', CustomUserLoginView.as_view(), name='user-login'),
-
 ]
 
 if settings.DEBUG:

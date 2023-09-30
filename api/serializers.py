@@ -4,19 +4,22 @@ from flowrate.models import Device, FlowRate
 from temperature_recording.models import TemperatureHumidityRecord 
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-User = get_user_model()
+from registration.models import CustomUser
+CustomUser = get_user_model()
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = CustomUser
         fields = ('username', 'password', 'email',"first_name","last_name")
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(
+        user = CustomUser.objects.create_user(
             username=validated_data['username'],
             password=validated_data['password'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
             email=validated_data['email'],
         )
         return user

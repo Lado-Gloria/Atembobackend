@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate, login
-from rest_framework.authtoken.models import Token
+# from rest_framework.authtoken.models import Token
 import logging
 from api.serializers import CustomUserSerializer, DeviceSerializer, FlowRateSerializer, LocationSerializer, TemperatureHumidityRecordSerializer
 from device.models import Device
@@ -12,12 +12,14 @@ from location.models import Location
 from temperature_recording.models import TemperatureHumidityRecord
 from registration.models import CustomUser
 
+from django.utils.decorators import method_decorator
 
-from registration.models import CustomUser
+from django.views.decorators.csrf import csrf_exempt
 logger = logging.getLogger(__name__)
 
 
 class CustomUserListView(APIView):
+    @method_decorator(csrf_exempt)
     def get(self, request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
@@ -51,13 +53,13 @@ class CustomUserDetailView(APIView):
         return Response("User deleted", status=status.HTTP_204_NO_CONTENT)
     
 
-class CustomUserRegistrationView(APIView):
-    def post(self, request):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class CustomUserRegistrationView(APIView):
+#     def post(self, request):
+#         serializer = CustomUserSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class CustomUserLoginView(APIView):

@@ -3,6 +3,8 @@ import os
 from pathlib import Path
 
 
+AUTH_USER_MODEL = 'registration.CustomUser'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -62,6 +64,7 @@ TEMPLATES = [
         },
     },
 ]
+
 # Heroku settings.
 import django_heroku
 django_heroku.settings(locals())
@@ -74,20 +77,20 @@ WSGI_APPLICATION = 'atembobackend.wsgi.application'
 from decouple import config
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': config('DB_ENGINE'),
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT', default='5432')
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': config('DB_ENGINE'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432')
+    }
+}
 
 
 
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 
 

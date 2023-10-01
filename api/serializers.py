@@ -3,8 +3,8 @@ from location.models import Location
 from flowrate.models import Device, FlowRate
 from temperature_recording.models import TemperatureHumidityRecord 
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
 from registration.models import CustomUser
+from rest_framework import serializers
 CustomUser = get_user_model()
 
 

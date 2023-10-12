@@ -84,24 +84,20 @@ WSGI_APPLICATION = 'atembobackend.wsgi.application'
 from decouple import config
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': config('DB_ENGINE'),
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT', default='5432')
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': config('DB_ENGINE'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432')
+    }
+}
 
 
 
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
-
-
-
-
+# DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
